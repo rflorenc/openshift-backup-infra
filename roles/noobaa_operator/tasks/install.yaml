@@ -1,0 +1,21 @@
+- name: Copy noobaa-operator script to {{ noobaa_operator_tmp.path }}
+  copy:
+    src: 'files/{{ item }}'
+    dest: '{{ noobaa_operator_tmp.path }}/{{ item }}'
+    mode: a+x
+  loop:
+    - noobaa
+    - noobaa-wrapper.sh
+
+- name: Install noobaa
+  shell: "{{ noobaa_operator_tmp.path }}/noobaa-wrapper.sh {{ noobaa_operator_tmp.path }} {{ noobaa_operator_namespace }}"
+  register: noobaa_rollout
+  ignore_errors: yes
+  until: noobaa_rollout.rc == 0
+
+- name: Apply role
+  k8s:
+    state: present
+    definition: "{{ lookup('template', '{{ item }}') }}"
+  loop:
+    - role.yaml.j2

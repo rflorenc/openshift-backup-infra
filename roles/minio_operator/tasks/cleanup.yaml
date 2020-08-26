@@ -1,0 +1,9 @@
+- name: Clean working directory
+  file:
+    path: '{{ minio_operator_tmp.path }}'
+    state: absent
+  when: minio_operator_tmp is defined
+
+- name: Clean working directory variable
+  set_fact:
+    minio_operator_tmp: ''

@@ -1,0 +1,12 @@
+galaxy_info:
+  author: Engineering
+  description: This role configures Minio Operator and Minio in OpenShift
+  company: SIX
+  license: proprietary
+  platforms:
+    - name: OpenShift
+      versions:
+        - 3.11
+  min_ansible_version: 2.6
+  galaxy_tags: []
+dependencies: []

@@ -1,0 +1,9 @@
+- name: Clean working directory
+  file:
+    path: '{{ noobaa_operator_tmp.path }}'
+    state: absent
+  when: noobaa_operator_tmp is defined
+
+- name: Clean working directory variable
+  set_fact:
+    noobaa_operator_tmp: ''

@@ -1,0 +1,11 @@
+- name: Create working directory
+  tempfile:
+    state: directory
+  register: velero_tmp
+  when: velero_tmp is not defined or velero_tmp == ''
+
+- import_role:
+    name: minio_operator
+
+- import_role:
+    name: noobaa_operator

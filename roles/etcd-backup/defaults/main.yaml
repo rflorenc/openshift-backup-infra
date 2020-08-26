@@ -1,0 +1,13 @@
+---
+etcd_backup_namespace: "etcd-backup"
+etcd_backup_username: "etcd-backup-user"
+etcd_backup_serviceaccount: "system:serviceaccount:{{ etcd_backup_namespace }}:{{ etcd_backup_username }}"
+etcd_cluster_id: "six-demo"
+
+# https://kubernetes.io/docs/tasks/job/automated-tasks-with-cron-jobs/#schedule
+etcd_backup_schedule: "0 1 * * *"
+
+etcd_backup_storageclass: local-sc
+etcd_backup_pvc_claim: "{{ etcd_cluster_id }}-etcd-backup"
+etcd_backup_volume_size: "10Gi"
+etcd_backup_configmap: "etcd-backup-scripts"

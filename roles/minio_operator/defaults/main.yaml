@@ -1,0 +1,5 @@
+minio_operator_namespace: 'minio-operator'
+minio_operator_replicas: 1
+minio_operator_image_tag: 'v3.0.9'
+minio_operator_accesskey: bWluaW8=
+minio_operator_secretkey: bWluaW8xMjM=

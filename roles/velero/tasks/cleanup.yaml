@@ -1,0 +1,9 @@
+- name: Clean working directory
+  file:
+    path: '{{ velero_tmp.path }}'
+    state: absent
+  when: velero_tmp is defined
+
+- name: Clean working directory variable
+  set_fact:
+    velero_tmp: ''

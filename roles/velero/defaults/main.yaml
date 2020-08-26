@@ -1,0 +1,5 @@
+velero_namespace: velero
+velero_s3_aws_access_key_id:
+velero_s3_aws_secret_access_key:
+cloud-credentials-secret:
+aws_s3: false

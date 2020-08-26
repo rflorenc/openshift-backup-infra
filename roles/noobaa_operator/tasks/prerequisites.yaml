@@ -1,0 +1,5 @@
+- name: Create working directory
+  tempfile:
+    state: directory
+  register: noobaa_operator_tmp
+  when: noobaa_operator_tmp is not defined or noobaa_operator_tmp == ''

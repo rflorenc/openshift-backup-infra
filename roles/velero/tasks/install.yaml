@@ -1,0 +1,47 @@
+- name: Apply velero template manifest in {{ velero_tmp.path }}
+  template:
+    src: '{{ item }}'
+    dest: '{{ velero_tmp.path }}/{{ item }}'
+  loop:
+    - velero-crds.yaml
+    - velero-namespace.yaml
+
+- name: Ensure {{ velero_namespace }} crds exist
+  command: oc apply -f {{ velero_tmp.path }}/velero-crds.yaml
+
+- name: Ensure {{ velero_namespace }} namespace exists
+  command: oc apply -f {{ velero_tmp.path }}/velero-namespace.yaml
+
+- name: Get default nooba-operator S3 route
+  command: "oc get route s3 --no-headers -o custom-columns=:.spec.host -n noobaa-operator"
+  register: default_noobaa_operator_s3_route
+
+- name: Set Velero default BSL s3_url
+  set_fact:
+    velero_bsl_s3_url: "{{ default_noobaa_operator_s3_route.stdout }}"
+
+- name: Get S3 NOOBAA_ACCESS_KEY_ID
+  shell: "oc get secret noobaa-admin -n noobaa-operator -o jsonpath='{.data.AWS_ACCESS_KEY_ID}' | base64 -d"
+  register: noobaa_access_key_id
+
+- name: Get S3 NOOBAA_SECRET_KEY
+  shell: "oc get secret noobaa-admin -n noobaa-operator -o jsonpath='{.data.AWS_SECRET_ACCESS_KEY}'| base64 -d"
+  register: noobaa_secret_access_key
+
+- name: Set key facts
+  set_fact:
+    velero_s3_aws_access_key_id: "{{ noobaa_access_key_id.stdout }}"
+    velero_s3_aws_secret_access_key: "{{ noobaa_secret_access_key.stdout }}"
+
+- name: Template creds file manifest in {{ velero_tmp.path }}
+  template:
+    src: cloud-credentials.j2
+    dest: '{{ velero_tmp.path }}/cloud-credentials'
+
+- name: Apply generic secret
+  shell: "oc create secret generic cloud-credentials --namespace {{ velero_namespace }} --from-file cloud={{ velero_tmp.path }}/cloud-credentials --dry-run -o yaml | oc apply -f -"
+
+- name:  Install Velero
+  k8s: 
+    state: present
+    definition: "{{ lookup('template', 'velero-install.yaml.j2') }}"

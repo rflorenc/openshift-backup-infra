@@ -1,0 +1,11 @@
+- import_tasks: prerequisites.yaml
+  tags:
+    - always
+
+- import_tasks: install.yaml
+  tags:
+    - noobaa
+
+- import_tasks: cleanup.yaml
+  tags:
+    - cleanup

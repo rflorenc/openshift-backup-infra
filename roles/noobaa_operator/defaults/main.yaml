@@ -1,0 +1,5 @@
+noobaa_operator_namespace: 'noobaa-operator'
+noobaa_operator_replicas: 1
+noobaa_operator_image_tag: 'v3.0.9'
+noobaa_operator_accesskey: 
+noobaa_operator_secretkey: 

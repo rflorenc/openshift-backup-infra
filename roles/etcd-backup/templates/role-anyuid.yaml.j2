@@ -1,0 +1,15 @@
+# mimics system:openshift:scc:anyuid clusterrole
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ etcd_backup_namespace }}-anyuid
+  namespace: {{ etcd_backup_namespace }}
+rules:
+  - apiGroups:
+      - security.openshift.io
+    resourceNames:
+      - anyuid
+    resources:
+      - securitycontextconstraints
+    verbs:
+      - use

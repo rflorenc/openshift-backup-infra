@@ -1,0 +1,12 @@
+---
+  - import_tasks: prerequisites.yaml
+    tags:
+    - velero
+
+  - import_tasks: install.yaml
+    tags:
+    - velero
+
+  - import_tasks: cleanup.yaml
+    tags:
+    - velero
