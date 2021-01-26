@@ -1,5 +1,10 @@
 noobaa_operator_namespace: 'noobaa-operator'
 noobaa_operator_replicas: 1
-noobaa_operator_image_tag: 'v3.0.9'
-noobaa_operator_accesskey: 
-noobaa_operator_secretkey: 
+
+noobaa_operator_image_tag: 'docker.io/noobaa/noobaa-operator:2.3.0'
+noobaa_operator_core_image_tag: docker.io/noobaa/noobaa-core:5.5.0
+noobaa_operator_db_image_tag: docker.io/centos/mongodb-36-centos7
+noobaa_operator_db_storage_class: local-sc
+
+noobaa_operator_accesskey:
+noobaa_operator_secretkey:

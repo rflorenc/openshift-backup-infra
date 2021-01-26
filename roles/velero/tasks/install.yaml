@@ -16,7 +16,7 @@
   command: "oc get route s3 --no-headers -o custom-columns=:.spec.host -n noobaa-operator"
   register: default_noobaa_operator_s3_route
 
-- name: Set Velero default BSL s3_url
+- name: Define Noobaa as Velero default Backup Storage Location
   set_fact:
     velero_bsl_s3_url: "{{ default_noobaa_operator_s3_route.stdout }}"
 
@@ -28,7 +28,7 @@
   shell: "oc get secret noobaa-admin -n noobaa-operator -o jsonpath='{.data.AWS_SECRET_ACCESS_KEY}'| base64 -d"
   register: noobaa_secret_access_key
 
-- name: Set key facts
+- name: Set s3 key facts
   set_fact:
     velero_s3_aws_access_key_id: "{{ noobaa_access_key_id.stdout }}"
     velero_s3_aws_secret_access_key: "{{ noobaa_secret_access_key.stdout }}"
@@ -42,6 +42,6 @@
   shell: "oc create secret generic cloud-credentials --namespace {{ velero_namespace }} --from-file cloud={{ velero_tmp.path }}/cloud-credentials --dry-run -o yaml | oc apply -f -"
 
 - name:  Install Velero
-  k8s: 
+  k8s:
     state: present
     definition: "{{ lookup('template', 'velero-install.yaml.j2') }}"

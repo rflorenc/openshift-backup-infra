@@ -1,6 +1,0 @@
-# for when we support installation in different openshift versions
-spec:
-  template:
-    spec:
-      nodeSelector:
-        node-role.kubernetes.io/infra: "true"

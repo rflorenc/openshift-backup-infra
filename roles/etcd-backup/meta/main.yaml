@@ -1,8 +1,0 @@
-galaxy_info:
-  author: Engineering
-  description: Role to create a Kubernetes cronjob which creates an etcd snapshot and writes it to a Persistent Volume.
-  company: SIX
-  license: 
-  min_ansible_version: 2.8
-  galaxy_tags: []
-  dependencies: []

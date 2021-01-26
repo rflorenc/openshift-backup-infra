@@ -4,8 +4,8 @@ metadata:
   name: minio-creds-secret
 type: Opaque
 data:
-  accesskey: bWluaW8= # base 64 encoded "minio" (echo -n 'minio' | base64)
-  secretkey: bWluaW8xMjM= # based 64 encoded "minio123" (echo -n 'minio123' | base64)
+  accesskey: {{ minio_operator_accesskey }}
+  secretkey: {{ minio_operator_secretkey }}
 ---
 apiVersion: minio.min.io/v1
 kind: Tenant
@@ -20,7 +20,7 @@ spec:
       prometheus.io/path: /minio/prometheus/metrics
       prometheus.io/port: "9000"
       prometheus.io/scrape: "true"
-  image: docker.io/minio/minio:RELEASE.2020-08-05T21-34-13Z
+  image: {{ minio_tenant_image_tag }}
   zones:
     - servers: 2
     # zones must have minimum two volumes per server

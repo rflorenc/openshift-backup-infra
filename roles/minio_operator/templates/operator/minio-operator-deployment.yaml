@@ -16,7 +16,7 @@ spec:
       serviceAccountName: minio-operator-sa
       containers:
         - name: minio-operator
-          image: docker.io/minio/k8s-operator:{{ minio_operator_image_tag }}
+          image: {{ minio_operator_image_tag }}
           imagePullPolicy: IfNotPresent
       securityContext:
         runAsNonRoot: true
