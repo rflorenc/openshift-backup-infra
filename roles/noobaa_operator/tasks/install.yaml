@@ -13,9 +13,12 @@
     " {{ noobaa_operator_tmp.path }}"
     " {{ noobaa_operator_namespace }}"
     " {{ noobaa_operator_core_image_tag }}"
-    " {{ noobaa_operator_image_tag }}"
     " {{ noobaa_operator_db_image_tag }}"
+    " {{ noobaa_operator_image_tag }}"
     " {{ noobaa_operator_db_storage_class }}"
+  register: noobaa_rollout
+  ignore_errors: yes
+  until: noobaa_rollout.rc == 0
 
   register: noobaa_rollout
   ignore_errors: yes
