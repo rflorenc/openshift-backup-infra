@@ -12,7 +12,7 @@ kubernetes and openshift python modules. See `requirements.txt`.
 
 ## Install
 
-$ make install
+$ make
 
 ## Manual install
 
