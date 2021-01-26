@@ -7,6 +7,18 @@
     - noobaa
     - noobaa-wrapper.sh
 
+- name: Create {{ noobaa_operator_namespace }} namespace
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'namespace.yaml.j2') }}"
+
+- name: Apply role
+  k8s:
+    state: present
+    definition: "{{ lookup('template', '{{ item }}') }}"
+  loop:
+    - role.yaml.j2
+
 - name: Install noobaa
   shell: >
     "{{ noobaa_operator_tmp.path }}/noobaa-wrapper.sh"
@@ -19,14 +31,3 @@
   register: noobaa_rollout
   ignore_errors: yes
   until: noobaa_rollout.rc == 0
-
-  register: noobaa_rollout
-  ignore_errors: yes
-  until: noobaa_rollout.rc == 0
-
-- name: Apply role
-  k8s:
-    state: present
-    definition: "{{ lookup('template', '{{ item }}') }}"
-  loop:
-    - role.yaml.j2
