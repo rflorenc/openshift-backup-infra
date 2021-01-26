@@ -4,7 +4,7 @@ This set of roles allow to backup Openshift project resources and volume data us
 Minio Operator is installed as well as an example failover HA backing store to Noobaa or as a stand alone S3 service.
 
 ## Prerequisites
-Python3 and make. All the container images in this repo are public. In order to use this playbook in a disconnected environment they will have to be pushed to an internal registry.
+Python3 and make. All the container images in this repo are public. In order to use this playbook in a disconnected environment they will have to be pushed to an internal registry. The ansible variables will need to be adapted accordingly.
 
 ## Dependencies
 
