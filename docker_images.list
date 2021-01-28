@@ -9,4 +9,4 @@ velero_image: quay.io/konveyor/velero:konveyor-1.4.3
 velero_restic_helper_image: docker.io/velero/velero-restic-restore-helper:v1.4.3
 velero_s3_plugin_image: quay.io/konveyor/velero-plugin-for-aws:konveyor-1.1.0
 
-velero_openshift_plugin_image_tag: docker.io/sseago/openshift-velero-plugin:dev
+velero_openshift_plugin_image_tag: docker.io/dymurray/openshift-velero-plugin:skipImages
