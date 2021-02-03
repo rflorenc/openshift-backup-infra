@@ -1,4 +1,3 @@
 ---
 - name: Import backup-infra-setup playbook
   import_playbook: playbooks/openshift-backup-infra-setup/config.yaml
-  when: "lookup('env', 'BACKUP_INFRA') | bool"

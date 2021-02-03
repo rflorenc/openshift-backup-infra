@@ -1,3 +1,7 @@
+ifndef storageclass
+$(error storageclass environment variable is not defined)
+endif
+
 .PHONY: default install test venv venv-clean clean pull
 
 WORKDIR?=.
@@ -10,7 +14,7 @@ VENV=$(VENVDIR)/bin
 default: install
 
 install: venv
-        export BACKUP_INFRA=true; $(VENV)/ansible-playbook site.yaml
+	$(VENV)/ansible-playbook site.yaml -v --extra-vars "noobaa_operator_db_storage_class=${storageclass}"
 
 clean: venv-clean
 
