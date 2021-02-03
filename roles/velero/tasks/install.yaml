@@ -5,12 +5,14 @@
   loop:
     - velero-crds.yaml
     - velero-namespace.yaml
+    - velero-restic-helper-configmap.yaml
 
-- name: Ensure {{ velero_namespace }} crds exist
-  command: oc apply -f {{ velero_tmp.path }}/velero-crds.yaml
-
-- name: Ensure {{ velero_namespace }} namespace exists
-  command: oc apply -f {{ velero_tmp.path }}/velero-namespace.yaml
+- name: Ensure {{ velero_namespace }} objects exist
+  command: oc apply -f {{ velero_tmp.path }}/{{ item }}
+  loop:
+    - velero-crds.yaml
+    - velero-namespace.yaml
+    - velero-restic-helper-configmap.yaml
 
 - name: Get default nooba-operator S3 route
   command: "oc get route s3 --no-headers -o custom-columns=:.spec.host -n noobaa-operator"
@@ -33,7 +35,7 @@
     velero_s3_aws_access_key_id: "{{ noobaa_access_key_id.stdout }}"
     velero_s3_aws_secret_access_key: "{{ noobaa_secret_access_key.stdout }}"
 
-- name: Template creds file manifest in {{ velero_tmp.path }}
+- name: Template credentials file manifest in {{ velero_tmp.path }}
   template:
     src: cloud-credentials.j2
     dest: '{{ velero_tmp.path }}/cloud-credentials'
@@ -45,3 +47,14 @@
   k8s:
     state: present
     definition: "{{ lookup('template', 'velero-install.yaml.j2') }}"
+
+- name: Copy Velero client to {{ velero_tmp.path }}
+  copy:
+    src: 'files/velero'
+    dest: '{{ velero_tmp.path }}/velero'
+    mode: a+x
+
+- name: Install Velero OpenShift Plugin
+  shell: >
+    "{{ velero_tmp.path }}/velero plugin add"
+    " {{ velero_openshift_plugin_image_tag }}"

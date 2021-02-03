@@ -96,7 +96,7 @@ items:
             value: /credentials/cloud
           - name: AZURE_CREDENTIALS_FILE
             value: /credentials/cloud
-          image: docker.io/velero/velero:v1.4.0
+          image: {{ velero_image_tag }}
           imagePullPolicy: IfNotPresent
           name: velero
           ports:
@@ -117,7 +117,7 @@ items:
           - mountPath: /credentials
             name: cloud-credentials
         initContainers:
-        - image: docker.io/velero/velero-plugin-for-aws:v1.1.0
+        - image: {{ velero_s3_plugin_image_tag }}
           imagePullPolicy: IfNotPresent
           name: velero-plugin-for-aws
           resources: {}
@@ -176,7 +176,7 @@ items:
             value: /credentials/cloud
           - name: AZURE_CREDENTIALS_FILE
             value: /credentials/cloud
-          image: docker.io/velero/velero:v1.4.0
+          image: {{ velero_image_tag }}
           imagePullPolicy: IfNotPresent
           name: restic
           resources: {}

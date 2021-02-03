@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: restic-restore-action-config
+  namespace: {{ velero_namespace }}
+data:
+  image: {{ velero_restic_helper_image_tag }}
