@@ -1,12 +1,7 @@
-minio_operator_image_tag: docker.io/minio/k8s-operator:v3.0.9
-minio_tenant_image_tag: docker.io/minio/minio:RELEASE.2020-08-05T21-34-13Z
-
 noobaa_operator_image_tag: docker.io/noobaa/noobaa-operator:2.3.0
 noobaa_operator_core_image_tag: docker.io/noobaa/noobaa-core:5.5.0
 noobaa_operator_db_image_tag: docker.io/centos/mongodb-36-centos7
-
 velero_image: quay.io/konveyor/velero:konveyor-1.4.3
 velero_restic_helper_image: docker.io/velero/velero-restic-restore-helper:v1.4.3
 velero_s3_plugin_image: quay.io/konveyor/velero-plugin-for-aws:konveyor-1.1.0
-
 velero_openshift_plugin_image_tag: docker.io/dymurray/openshift-velero-plugin:skipImages

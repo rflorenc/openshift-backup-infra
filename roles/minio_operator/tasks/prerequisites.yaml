@@ -1,5 +1,0 @@
-- name: Create working directory
-  tempfile:
-    state: directory
-  register: minio_operator_tmp
-  when: minio_operator_tmp is not defined or minio_operator_tmp == ''

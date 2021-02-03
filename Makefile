@@ -1,4 +1,4 @@
-.PHONY: default install test venv venv-clean clean
+.PHONY: default install test venv venv-clean clean pull
 
 WORKDIR?=.
 PY?=python3
@@ -21,3 +21,6 @@ venv:
 
 venv-clean:
 	rm -fr $(VENVDIR)
+
+pull:
+	for img in `awk '{print $$2}' $(WORKDIR)/docker_images.list`;do docker pull $$img;done
