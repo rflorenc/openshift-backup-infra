@@ -1,0 +1,5 @@
+minio_operator_namespace: 'minio-operator'
+minio_operator_replicas: 1
+minio_operator_image_tag: docker.io/minio/k8s-operator:v3.0.9
+minio_tenant_image_tag: docker.io/minio/minio:RELEASE.2020-08-05T21-34-13Z
+

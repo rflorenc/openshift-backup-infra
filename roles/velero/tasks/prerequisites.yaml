@@ -6,3 +6,7 @@
 
 - import_role:
     name: noobaa_operator
+
+- import_role:
+    name: minio_operator
+  when: "lookup('env', 'minio_operator') | bool"

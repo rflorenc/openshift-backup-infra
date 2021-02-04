@@ -1,5 +1,5 @@
-ifndef storageclass
-$(error storageclass environment variable is not defined)
+ifndef STORAGE_CLASS
+$(error STORAGE_CLASS environment variable is not defined)
 endif
 
 .PHONY: default install test venv venv-clean clean pull
@@ -14,7 +14,7 @@ VENV=$(VENVDIR)/bin
 default: install
 
 install: venv
-	$(VENV)/ansible-playbook site.yaml -v --extra-vars "noobaa_operator_db_storage_class=${storageclass}"
+	$(VENV)/ansible-playbook site.yaml -v --extra-vars "storage_class=${STORAGE_CLASS}"
 
 clean: venv-clean
 

@@ -12,13 +12,14 @@ kubernetes and openshift python modules. See `requirements.txt`.
 
 ## Install
 
-$ export storageclass=$targetStorageClass; make
+$ export STORAGE_CLASS=$exampleStorageClass
+$ make
 
 ## Manual install
 
 $ oc login https://api.cluster.example.net:8443 --token=${token}
 
-$ ansible-playbook site.yaml -v
+$ ansible-playbook site.yaml -v --extra-vars "storage_class=$EXAMPLE_STORAGE_CLASS
 
 
 ## Notes

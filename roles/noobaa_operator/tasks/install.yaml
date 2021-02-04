@@ -27,7 +27,7 @@
     " {{ noobaa_operator_core_image_tag }}"
     " {{ noobaa_operator_db_image_tag }}"
     " {{ noobaa_operator_image_tag }}"
-    " {{ noobaa_operator_db_storage_class }}"
+    " {{ storage_class }}"
   register: noobaa_rollout
   ignore_errors: yes
   until: noobaa_rollout.rc == 0

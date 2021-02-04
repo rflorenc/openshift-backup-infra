@@ -1,0 +1,40 @@
+- name: Apply minio-operator template manifest in {{ minio_operator_tmp.path }}
+  template:
+    src: 'operator/{{ item }}'
+    dest: '{{ minio_operator_tmp.path }}/{{ item }}'
+  loop:
+    - minio-operator-crd.yaml
+    - minio-operator-namespace.yaml
+    - minio-operator-clusterrole.yaml
+    - minio-operator-sa.yaml
+    - minio-operator-clusterrolebinding.yaml
+    - minio-operator-deployment.yaml
+
+- name: Ensure minio operator crd is installed
+  command: oc apply -f {{ minio_operator_tmp.path }}/minio-operator-crd.yaml
+
+- name: Ensure {{ minio_operator_namespace }} namespace exists
+  command: oc apply -f {{ minio_operator_tmp.path }}/minio-operator-namespace.yaml
+
+- name: Ensure minio-operator is installed
+  k8s:
+    state: present
+    namespace: '{{ minio_operator_namespace }}'
+    src: '{{ minio_operator_tmp.path }}/{{ item }}'
+  loop:
+    - minio-operator-clusterrole.yaml
+    - minio-operator-sa.yaml
+    - minio-operator-clusterrolebinding.yaml
+    - minio-operator-deployment.yaml
+
+#  We could apply directly without copying to tmp dir but
+#  k8s module is not handling the crd spec correctly
+- name: Apply minio-tenant template manifest in {{ minio_operator_tmp.path }}
+  template:
+    src: 'tenants/{{ item }}'
+    dest: '{{ minio_operator_tmp.path }}/{{ item }}'
+  loop:
+    - minio-tenant.yaml
+
+- name: Ensure minio tenant crd is installed
+  command: oc apply -f {{ minio_operator_tmp.path }}/minio-tenant.yaml -n {{ minio_operator_namespace }}

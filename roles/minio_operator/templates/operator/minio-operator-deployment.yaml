@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minio-operator
+  namespace: "{{ minio_operator_namespace }}"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: minio-operator
+  template:
+    metadata:
+      labels:
+        name: minio-operator
+    spec:
+      serviceAccountName: minio-operator-sa
+      containers:
+        - name: minio-operator
+          image: {{ minio_operator_image_tag }}
+          imagePullPolicy: IfNotPresent
+      securityContext:
+        runAsNonRoot: true
+        readOnlyRootFilesystem: true
