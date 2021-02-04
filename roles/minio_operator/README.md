@@ -2,7 +2,7 @@
 
 Minio Operator Role provides the installation of Minio Operator on OpenShift.
 
-## Vendor documentation
+## Documentation
 
 * https://github.com/minio/minio-operator
 
