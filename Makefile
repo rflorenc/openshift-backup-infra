@@ -14,6 +14,7 @@ VENV=$(VENVDIR)/bin
 default: install
 
 install: venv
+	find . -type f  \( -name velero -o -name noobaa -o -name noobaa-wrapper.sh \) | xargs chmod +x
 	$(VENV)/ansible-playbook site.yaml -v --extra-vars "storage_class=${STORAGE_CLASS}"
 
 clean: venv-clean

@@ -1,4 +1,4 @@
-noobaa_operator_namespace: 'noobaa-operator'
+noobaa_operator_namespace: noobaa-operator
 noobaa_operator_replicas: 1
 
 noobaa_operator_core_image_tag: docker.io/noobaa/noobaa-core:5.5.0
