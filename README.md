@@ -12,9 +12,12 @@ kubernetes and openshift python modules. See `requirements.txt`.
 
 ## Install
 
-$ export STORAGE_CLASS=$exampleStorageClass
-$ make
+$ export STORAGE_CLASS=$exampleStorageClass 
 
+$ make 
+
+ 
+ 
 ## Manual install
 
 $ oc login https://api.cluster.example.net:8443 --token=${token}
@@ -24,12 +27,14 @@ $ ansible-playbook site.yaml -v --extra-vars "storage_class=$EXAMPLE_STORAGE_CLA
 
 ## Notes
 
-The `velero` and `noobaa` binaries used in the repository are ELF 64-bit x86-64 executables.
+* The `velero` and `noobaa` binaries used in the repository are ELF 64-bit x86-64 executables.
+
+* Any http_proxy configuration will have to be done manually, either for pip configuration or access to an internal registry.
+
 
 The following env vars can be exported while testing the playbooks manually.
-
+```
 K8S_AUTH_VERIFY_SSL=False
-
 K8S_AUTH_API_KEY={{ openshift_token }}
-
 K8S_AUTH_HOST={{ https://openshift_api_url:6443 }}
+```
