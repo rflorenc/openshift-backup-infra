@@ -33,3 +33,9 @@ K8S_AUTH_VERIFY_SSL=False
 K8S_AUTH_API_KEY={{ openshift_token }}
 K8S_AUTH_HOST={{ https://openshift_api_url:6443 }}
 ```
+
+## Resource requirements
+
+Noobaa DB requires at least 2 Core and 4Gib RAM available to bootstrap properly.
+
+If the pod does not start, noobaa-core will fail to connect to it and the installation will fail.
