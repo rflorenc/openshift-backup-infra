@@ -5,7 +5,7 @@ Minio Operator is installed as well as an example failover HA backing store to N
 
 ## Prerequisites
 
-Linux OS, Python3 and make. 
+Linux or Mac OS, Python3 and make.
 All the container images in this repository are public. In order to use this playbook in a disconnected environment they will have to be tagged and pushed to an internal registry. The ansible variables will need to be adapted accordingly. See `docker_images.list`.
 
 ## Dependencies
@@ -14,31 +14,13 @@ kubernetes and openshift python modules. See `requirements.txt`.
 
 ## Install
 
-<<<<<<< Updated upstream
 $ oc login https://api.cluster.example.net:8443 --token=${token}
 
 $ export STORAGE_CLASS=${exampleStorageClass}
 
-$ make 
-
- 
- 
-## Manual install
-
-$ oc login https://api.cluster.example.net:8443 --token=${token}
-
-$ ansible-playbook site.yaml -v --extra-vars "storage_class=${exampleStorageClass}
-=======
-$ oc login https://api.cluster.example.net:8443 --token=${token}
-
-$ export STORAGE_CLASS=$exampleStorageClass
->>>>>>> Stashed changes
-
 $ make
 
 ## Notes
-
-* The `velero` and `noobaa` binaries used in the repository are ELF 64-bit x86-64 executables.
 
 * No SSH access is required to the cluster nodes.
 
