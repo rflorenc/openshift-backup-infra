@@ -4,7 +4,9 @@ This set of roles allow to backup Openshift project resources and volume data us
 Minio Operator is installed as well as an example failover HA backing store to Noobaa or as a stand alone S3 service.
 
 ## Prerequisites
-Python3 and make. All the container images in this repository are public. In order to use this playbook in a disconnected environment they will have to be tagged and pushed to an internal registry. The ansible variables will need to be adapted accordingly. See `docker_images.list`.
+
+Linux OS, Python3 and make. 
+All the container images in this repository are public. In order to use this playbook in a disconnected environment they will have to be tagged and pushed to an internal registry. The ansible variables will need to be adapted accordingly. See `docker_images.list`.
 
 ## Dependencies
 
@@ -12,7 +14,9 @@ kubernetes and openshift python modules. See `requirements.txt`.
 
 ## Install
 
-$ export STORAGE_CLASS=$exampleStorageClass 
+$ oc login https://api.cluster.example.net:8443 --token=${token}
+
+$ export STORAGE_CLASS=${exampleStorageClass}
 
 $ make 
 
@@ -22,7 +26,7 @@ $ make
 
 $ oc login https://api.cluster.example.net:8443 --token=${token}
 
-$ ansible-playbook site.yaml -v --extra-vars "storage_class=$EXAMPLE_STORAGE_CLASS
+$ ansible-playbook site.yaml -v --extra-vars "storage_class=${exampleStorageClass}
 
 
 ## Notes
