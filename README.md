@@ -14,6 +14,7 @@ kubernetes and openshift python modules. See `requirements.txt`.
 
 ## Install
 
+<<<<<<< Updated upstream
 $ oc login https://api.cluster.example.net:8443 --token=${token}
 
 $ export STORAGE_CLASS=${exampleStorageClass}
@@ -27,11 +28,19 @@ $ make
 $ oc login https://api.cluster.example.net:8443 --token=${token}
 
 $ ansible-playbook site.yaml -v --extra-vars "storage_class=${exampleStorageClass}
+=======
+$ oc login https://api.cluster.example.net:8443 --token=${token}
 
+$ export STORAGE_CLASS=$exampleStorageClass
+>>>>>>> Stashed changes
+
+$ make
 
 ## Notes
 
 * The `velero` and `noobaa` binaries used in the repository are ELF 64-bit x86-64 executables.
+
+* No SSH access is required to the cluster nodes.
 
 * Any http_proxy configuration will have to be done manually, either for pip configuration or access to an internal registry.
 

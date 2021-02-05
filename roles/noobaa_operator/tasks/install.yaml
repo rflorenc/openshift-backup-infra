@@ -1,12 +1,3 @@
-- name: Copy noobaa-operator script to {{ noobaa_operator_tmp.path }}
-  copy:
-    src: 'files/{{ item }}'
-    dest: '{{ noobaa_operator_tmp.path }}/{{ item }}'
-    mode: a+x
-  loop:
-    - noobaa
-    - noobaa-wrapper.sh
-
 - name: Create {{ noobaa_operator_namespace }} namespace
   k8s:
     state: present
@@ -19,15 +10,53 @@
   loop:
     - role.yaml.j2
 
-- name: Install noobaa
-  shell: >
-    "{{ noobaa_operator_tmp.path }}/noobaa-wrapper.sh"
-    " {{ noobaa_operator_tmp.path }}"
-    " {{ noobaa_operator_namespace }}"
-    " {{ noobaa_operator_core_image_tag }}"
-    " {{ noobaa_operator_db_image_tag }}"
-    " {{ noobaa_operator_image_tag }}"
-    " {{ storage_class }}"
-  register: noobaa_rollout
-  ignore_errors: yes
-  until: noobaa_rollout.rc == 0
+- name: Copy and Install Noobaa CLI (Linux)
+  block:
+    - name: Copy noobaa cli to {{ noobaa_operator_tmp.path }}
+      copy:
+        src: 'files/noobaa-linux-amd64'
+        dest: '{{ noobaa_operator_tmp.path }}/noobaa-linux-amd64'
+        mode: a+x
+
+    - name: Install noobaa
+      shell: >
+        {{ noobaa_operator_tmp.path }}/noobaa-linux-amd64
+        install
+        -n {{ noobaa_operator_namespace }}
+        --noobaa-image={{ noobaa_operator_core_image_tag }}
+        --operator-image={{ noobaa_operator_image_tag }}
+        --db-image={{ noobaa_operator_db_image_tag }}
+        --db-storage-class={{ storage_class }}
+        --pv-pool-default-storage-class={{ storage_class }}
+        &>
+        /tmp/noobaa-linux-amd64-install.log
+      register: noobaa_rollout
+      ignore_errors: yes
+      until: noobaa_rollout.rc == 0
+  when: ansible_distribution == 'RedHat' or ansible_distribution == 'Fedora' or ansible_distribution == 'CentOS'
+
+
+- name: Copy and Install Noobaa CLI (MacOSX)
+  block:
+    - name: Copy noobaa cli to {{ noobaa_operator_tmp.path }}
+      copy:
+        src: 'files/noobaa-darwin-amd64'
+        dest: '{{ noobaa_operator_tmp.path }}/noobaa-darwin-amd64'
+        mode: a+x
+
+    - name: Install noobaa (darwin binary)
+      shell: >
+        {{ noobaa_operator_tmp.path }}/noobaa-darwin-amd64
+        install
+        -n {{ noobaa_operator_namespace }}
+        --noobaa-image={{ noobaa_operator_core_image_tag }}
+        --operator-image={{ noobaa_operator_image_tag }}
+        --db-image={{ noobaa_operator_db_image_tag }}
+        --db-storage-class={{ storage_class }}
+        --pv-pool-default-storage-class={{ storage_class }}
+        &>
+        /tmp/noobaa-darwin-amd64-install.log
+      register: noobaa_rollout
+      ignore_errors: yes
+      until: noobaa_rollout.rc == 0
+  when: ansible_distribution == 'MacOSX'

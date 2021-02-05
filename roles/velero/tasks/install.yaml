@@ -43,18 +43,39 @@
 - name: Apply generic secret
   shell: "oc create secret generic cloud-credentials --namespace {{ velero_namespace }} --from-file cloud={{ velero_tmp.path }}/cloud-credentials --dry-run -o yaml | oc apply -f -"
 
-- name:  Install Velero
+- name:  Install Velero Objects
   k8s:
     state: present
     definition: "{{ lookup('template', 'velero-install.yaml.j2') }}"
 
-- name: Copy Velero client to {{ velero_tmp.path }}
-  copy:
-    src: 'files/velero'
-    dest: '{{ velero_tmp.path }}/velero'
-    mode: a+x
+- name: Copy and Install Velero CLI (Linux)
+  block:
+    - name: Copy Velero client to {{ velero_tmp.path }}
+      copy:
+        src: 'files/velero-linux-amd64'
+        dest: '{{ velero_tmp.path }}/velero-linux-amd64'
+        mode: a+x
 
-- name: Install Velero OpenShift Plugin
-  shell: >
-    "{{ velero_tmp.path }}/velero plugin add"
-    " {{ velero_openshift_plugin_image_tag }}"
+    - name: Install Velero OpenShift Plugin
+      shell: >
+        {{ velero_tmp.path }}/velero-linux-amd64
+        plugin
+        add
+        {{ velero_openshift_plugin_image_tag }}
+  when: ansible_distribution == 'RedHat' or ansible_distribution == 'Fedora' or ansible_distribution == 'CentOS'
+
+- name: Copy and Install Velero CLI (MacOSX)
+  block:
+    - name: Copy Velero client to {{ velero_tmp.path }}
+      copy:
+        src: 'files/velero-darwin-amd64'
+        dest: '{{ velero_tmp.path }}/velero-darwin-amd64'
+        mode: a+x
+
+    - name: Install Velero OpenShift Plugin (darwin binary)
+      shell: >
+        {{ velero_tmp.path }}/velero-darwin-amd64
+        plugin
+        add
+        {{ velero_openshift_plugin_image_tag }}
+  when: ansible_distribution == 'MacOSX'

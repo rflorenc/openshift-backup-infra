@@ -9,4 +9,4 @@
 
 - import_role:
     name: minio_operator
-  when: "lookup('env', 'minio_operator') | bool"
+  when: minio_operator is defined
