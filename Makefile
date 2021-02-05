@@ -16,6 +16,9 @@ default: install
 install: venv
 	$(VENV)/ansible-playbook site.yaml -v --extra-vars "storage_class=${STORAGE_CLASS}"
 
+uninstall:
+	$(VENV)/ansible-playbook site.yaml -v --extra-vars "uninstall=true"
+
 clean: venv-clean
 
 # Prepare a Python3 virtualenv
@@ -27,4 +30,4 @@ venv-clean:
 	rm -fr $(VENVDIR)
 
 pull:
-	for img in `awk '{print $$2}' $(WORKDIR)/docker_images.list`;do docker pull $$img;done
+	for img in `awk '{print $$2}' $(WORKDIR)/hack/docker_images.list`;do docker pull $$img;done

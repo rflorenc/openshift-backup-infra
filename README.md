@@ -6,7 +6,7 @@ Minio Operator is installed as well as an example failover HA backing store to N
 ## Prerequisites
 
 Linux or Mac OS, Python3 and make.
-All the container images in this repository are public. In order to use this playbook in a disconnected environment they will have to be tagged and pushed to an internal registry. The ansible variables will need to be adapted accordingly. See `docker_images.list`.
+All the container images in this repository are public. In order to use this playbook in a disconnected environment they will have to be tagged and pushed to an internal registry. The ansible variables will need to be adapted accordingly. See `hack/docker_images.list`.
 
 ## Dependencies
 

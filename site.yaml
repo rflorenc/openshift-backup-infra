@@ -1,3 +1,8 @@
 ---
-- name: Import backup-infra-setup playbook
-  import_playbook: playbooks/openshift-backup-infra-setup/config.yaml
+- name: Import openshift-backup-infra install playbook
+  import_playbook: playbooks/openshift-backup-infra/install.yaml
+  when: uninstall is not defined
+
+- name: Import openshift-backup-infra uninstall playbook
+  import_playbook: playbooks/openshift-backup-infra/uninstall.yaml
+  when: uninstall is defined

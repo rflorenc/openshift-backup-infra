@@ -1,0 +1,44 @@
+---
+- hosts: localhost
+  vars:
+    noobaa_namespace: noobaa-operator
+    logfile: /tmp/noobaa_uninstall.log
+
+  tasks:
+  - name: Uninstall
+    block:
+      - name: Delete namespaces
+        shell: oc delete ns {{ item }} &> /dev/null
+        loop:
+          - minio-operator
+          - ceph-nano
+          - velero
+
+      - name: Patch CRD finalizers
+        shell: >
+          oc patch bucketclass -n {{ noobaa_namespace }} --type=merge -p '{"metadata":{"finalizers":null}}' noobaa-default-bucket-class
+          oc patch noobaa -n {{ noobaa_namespace }} --type=merge -p '{"metadata":{"finalizers":null}}' noobaa
+
+      - name: Patch pod finalizers
+        shell: >
+          for pod in `oc get pods -o jsonpath='{.items[*].metadata.name}' -n {{ noobaa_namespace }}`;
+          do
+          oc patch pod -n {{ noobaa_namespace }} --type=merge -p '{"metadata":{"finalizers":null}}' $pod;
+          done
+
+      - name: Remove logfile
+        file:
+          state: absent
+          path: "{{ logfile }}"
+
+      - name: Run Noobaa uninstall (Linux)
+        shell: >
+          ../../roles/noobaa_operator/files/noobaa-linux-amd64 uninstall --cleanup=true -n {{ noobaa_namespace }} >> {{ logfile }} 2>&1
+        when: ansible_distribution == 'RedHat' or ansible_distribution == 'CentOS' or ansible_distribution == 'Fedora'
+
+      - name: Run Noobaa uninstall (MacOSX)
+        shell: >
+          ../../roles/noobaa_operator/files/noobaa-darwin-amd64 uninstall --cleanup=true -n {{ noobaa_namespace }} >> {{ logfile }} 2>&1
+        when: ansible_distribution == 'MacOSX'
+
+    ignore_errors: true
