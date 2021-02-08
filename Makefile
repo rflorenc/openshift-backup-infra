@@ -17,7 +17,7 @@ install: venv
 	$(VENV)/ansible-playbook site.yaml -v --extra-vars "storage_class=${STORAGE_CLASS}"
 
 uninstall:
-	$(VENV)/ansible-playbook site.yaml -v --extra-vars "uninstall=true"
+	$(VENV)/ansible-playbook site.yaml -v --tags "uninstall"
 
 clean: venv-clean
 
