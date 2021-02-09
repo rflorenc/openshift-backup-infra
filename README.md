@@ -19,17 +19,13 @@ $ oc login https://api.cluster.example.net:8443 --token=${token}
 $ export STORAGE_CLASS=${exampleStorageClass}
 
 $ make
+``` 
+ 
 
-<<<<<<< Updated upstream
-
-# To remove everything 
+### Uninstall 
+```
 $ make uninstall
 ``` 
-=======
-## Uninstall 
-
-$ make uninstall
->>>>>>> Stashed changes
 
 ## Notes
 
