@@ -13,12 +13,17 @@ All the container images in this repository are public. In order to use this pla
 kubernetes and openshift python modules. See `requirements.txt`.
 
 ## Install
-
+```
 $ oc login https://api.cluster.example.net:8443 --token=${token}
 
 $ export STORAGE_CLASS=${exampleStorageClass}
 
 $ make
+
+
+# To remove everything 
+$ make uninstall
+``` 
 
 ## Notes
 
