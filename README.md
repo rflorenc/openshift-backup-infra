@@ -20,10 +20,16 @@ $ export STORAGE_CLASS=${exampleStorageClass}
 
 $ make
 
+<<<<<<< Updated upstream
 
 # To remove everything 
 $ make uninstall
 ``` 
+=======
+## Uninstall 
+
+$ make uninstall
+>>>>>>> Stashed changes
 
 ## Notes
 
