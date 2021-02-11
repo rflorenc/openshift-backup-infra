@@ -1,6 +1,6 @@
 # Stateful application backup/restore (mysql)
 
-This example is taken as is almost entirely from https://github.com/konveyor/velero-examples.
+This example is almost the same as the one at https://github.com/konveyor/velero-examples.
 
 The differences are:
 * we are using a Deployment instead of a DeploymentConfig.
