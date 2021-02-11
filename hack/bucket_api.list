@@ -1,0 +1,21 @@
+https://github.com/noobaa/noobaa-core/blob/v5.3.0/src/api/bucket_api.js#L17-L53
+
+noobaa -n noobaa-operator api bucket read_bucket '{ "name": "first.bucket" }'
+noobaa -n noobaa-operator api bucket create_bucket '{ "name": "second.bucket" }'
+noobaa -n noobaa-operator api bucket create_bucket '{ "name": "api" }'
+
+noobaa api bucket read_bucket '{ "name": "first.bucket" }'
+
+noobaa -n noobaa-operator api bucket list_buckets
+
+INFO[0000] ✅ Exists: NooBaa "noobaa"                    
+INFO[0000] ✅ Exists: Service "noobaa-mgmt"              
+INFO[0000] ✅ Exists: Secret "noobaa-operator"           
+INFO[0000] ✈️  RPC: bucket.list_buckets() Request: <nil> 
+INFO[0000] ✅ RPC: bucket.list_buckets() Response OK: took 0.3ms 
+buckets:
+- name: api
+- name: first.bucket
+- name: second.bucket
+
+noobaa -n noobaa-operator api bucket read_bucket '{ "name": "first.bucket" }'
