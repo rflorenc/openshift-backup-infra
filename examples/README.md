@@ -22,8 +22,8 @@ oc rsh -n mysql-persistent $mysql-pod
 mysql -u root -p
 <Enter>
 
-create database example;
-use example;
+create database menagerie;
+use menagerie;
 CREATE TABLE pet (name VARCHAR(20), owner VARCHAR(20), species VARCHAR(20), sex CHAR(1), birth DATE, death DATE);
 
 quit
@@ -78,7 +78,7 @@ oc get pvc -n mysql-persistent
 oc rsh -n mysql-persistent $mysql-pod
 
 mysql -u root -p
-use example;
+use menagerie;
 describe pet;
 
 ```
