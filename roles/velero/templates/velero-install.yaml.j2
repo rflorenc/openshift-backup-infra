@@ -35,10 +35,11 @@ items:
     config:
       s3ForcePathStyle: "true"
       insecureSkipTLSVerify: "true"
-      region: minio
+      region: noobaa
       s3Url: https://{{ velero_bsl_s3_url }}
     objectStorage:
       bucket: first.bucket
+      prefix: velero
     provider: aws
 - apiVersion: velero.io/v1
   kind: VolumeSnapshotLocation
@@ -50,7 +51,7 @@ items:
     namespace: velero
   spec:
     config:
-      region: minio
+      region: noobaa
     provider: aws
 - apiVersion: apps/v1
   kind: Deployment
