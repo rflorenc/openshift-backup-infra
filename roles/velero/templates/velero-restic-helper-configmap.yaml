@@ -3,5 +3,8 @@ kind: ConfigMap
 metadata:
   name: restic-restore-action-config
   namespace: {{ velero_namespace }}
+  labels:
+    velero.io/plugin-config: ""
+    velero.io/restic: RestoreItemAction
 data:
   image: {{ velero_restic_helper_image_tag }}
