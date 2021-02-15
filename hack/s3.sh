@@ -7,7 +7,7 @@ unset NOOBAA_SECRET_KEY
 NOOBAA_ACCESS_KEY=$(oc get secret noobaa-admin -n noobaa-operator -o json | jq -r '.data.AWS_ACCESS_KEY_ID|@base64d')
 NOOBAA_SECRET_KEY=$(oc get secret noobaa-admin -n noobaa-operator -o json | jq -r '.data.AWS_SECRET_ACCESS_KEY|@base64d')
 export NOOBAA_ACCESS_KEY
-export NOOBAA_SECRET_KEY=
+export NOOBAA_SECRET_KEY
 
 # kill any running `oc porforward`
 # job %1
