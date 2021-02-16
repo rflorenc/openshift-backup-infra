@@ -16,7 +16,7 @@ kubernetes and openshift python modules. See `requirements.txt`.
 ```
 $ oc login https://api.cluster.example.net:8443 --token=${token}
 
-$ export STORAGE_CLASS=${exampleStorageClass}
+$ export STORAGE_CLASS=exampleStorageClass
 
 $ make
 ``` 
