@@ -1,7 +1,7 @@
 # Ansible based Disconnected OpenShift 4 Backup Infra installer
 
 This set of roles allow to backup Openshift project resources and volume data using Velero, Restic and Noobaa Operator in a disconnected environment. Noobaa can be connected to an external s3 service provider such as AWS S3 or Azure Blob Storage.
-Minio Operator is installed as well as an example failover HA backing store to Noobaa or as a stand alone S3 service.
+Minio Operator can be installed as well as an example failover HA backing store to Noobaa or as a stand alone S3 service.
 
 ## Prerequisites
 
