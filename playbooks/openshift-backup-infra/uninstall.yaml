@@ -11,7 +11,6 @@
         shell: oc delete ns {{ item }} &> /dev/null
         loop:
           - minio-operator
-          - ceph-nano
           - velero
 
       - name: Patch CRD finalizers
