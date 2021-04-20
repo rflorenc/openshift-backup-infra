@@ -4,4 +4,4 @@
 
 - name: Import openshift-backup-infra uninstall playbook
   import_playbook: playbooks/openshift-backup-infra/uninstall.yaml
-  tags: uninstall
+  tags: [ 'never', 'uninstall' ]
