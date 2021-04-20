@@ -21,7 +21,7 @@ $ oc login https://api.cluster.example.net:8443 --token=${token}
 
 $ export STORAGE_CLASS=exampleStorageClass
 
-$ make
+$ make install
 ``` 
  
 
