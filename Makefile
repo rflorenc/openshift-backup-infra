@@ -30,6 +30,7 @@ clean: venv-clean
 # Prepare a Python3 virtualenv.
 venv:
 	$(PY) -m venv --prompt backup $(VENVDIR)
+	$(VENV)/pip install --upgrade pip
 	$(VENV)/pip install -Ur requirements.txt pip
 
 venv-clean:
