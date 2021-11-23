@@ -1,18 +1,17 @@
-- name: Apply velero template manifest in {{ velero_tmp.path }}
-  template:
-    src: '{{ item }}'
-    dest: '{{ velero_tmp.path }}/{{ item }}'
-  loop:
-    - velero-crds.yaml
-    - velero-namespace.yaml
-    - velero-restic-helper-configmap.yaml
+- name: Ensure velero crd objects exist
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'crd/v1/velero-crds.yaml') | from_yaml }}"
 
-- name: Ensure {{ velero_namespace }} objects exist
-  command: oc apply -f {{ velero_tmp.path }}/{{ item }}
-  loop:
-    - velero-crds.yaml
-    - velero-namespace.yaml
-    - velero-restic-helper-configmap.yaml
+- name: Ensure velero namespace exists
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'velero-namespace.yaml') | from_yaml }}"
+
+- name: Ensure velero restic helper configmap exists
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'velero-restic-helper-configmap.yaml') | from_yaml }}"
 
 - name: Get default nooba-operator S3 route
   command: "oc get route s3 --no-headers -o custom-columns=:.spec.host -n noobaa-operator"
@@ -52,13 +51,13 @@
   block:
     - name: Copy Velero client to {{ velero_tmp.path }}
       copy:
-        src: 'files/velero-linux-amd64'
-        dest: '{{ velero_tmp.path }}/velero-linux-amd64'
+        src: 'files/velero-linux-amd64.elf'
+        dest: '{{ velero_tmp.path }}/velero-linux-amd64.elf'
         mode: a+x
 
     - name: Install Velero OpenShift Plugin
       shell: >
-        {{ velero_tmp.path }}/velero-linux-amd64
+        {{ velero_tmp.path }}/velero-linux-amd64.elf
         plugin
         add
         {{ velero_openshift_plugin_image_tag }}
@@ -68,13 +67,13 @@
   block:
     - name: Copy Velero client to {{ velero_tmp.path }}
       copy:
-        src: 'files/velero-darwin-amd64'
-        dest: '{{ velero_tmp.path }}/velero-darwin-amd64'
+        src: 'files/velero-darwin-amd64.mac'
+        dest: '{{ velero_tmp.path }}/velero-darwin-amd64.mac'
         mode: a+x
 
     - name: Install Velero OpenShift Plugin (darwin binary)
       shell: >
-        {{ velero_tmp.path }}/velero-darwin-amd64
+        {{ velero_tmp.path }}/velero-darwin-amd64.mac
         plugin
         add
         {{ velero_openshift_plugin_image_tag }}

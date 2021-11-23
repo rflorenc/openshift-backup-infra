@@ -32,12 +32,12 @@
 
       - name: Run Noobaa uninstall (Linux)
         shell: >
-          ../../roles/noobaa_operator/files/noobaa-linux-amd64 uninstall --cleanup=true -n {{ noobaa_namespace }} >> {{ logfile }} 2>&1
+          ../../roles/noobaa_operator/files/noobaa-linux-amd64.elf uninstall --cleanup=true -n {{ noobaa_namespace }} >> {{ logfile }} 2>&1
         when: ansible_distribution == 'RedHat' or ansible_distribution == 'CentOS' or ansible_distribution == 'Fedora'
 
       - name: Run Noobaa uninstall (MacOSX)
         shell: >
-          ../../roles/noobaa_operator/files/noobaa-darwin-amd64 uninstall --cleanup=true -n {{ noobaa_namespace }} >> {{ logfile }} 2>&1
+          ../../roles/noobaa_operator/files/noobaa-darwin-amd64.mac uninstall --cleanup=true -n {{ noobaa_namespace }} >> {{ logfile }} 2>&1
         when: ansible_distribution == 'MacOSX'
 
     ignore_errors: true
