@@ -1,15 +1,15 @@
 # Ansible based OpenShift 4 Hybrid Backup Infra installer
 
-This set of roles allow to backup Openshift project resources and volume data using Velero, Restic and Noobaa Operator in a disconnected environment. Noobaa can be connected to an external s3 service provider such as AWS S3 or Azure Blob Storage.
+This set of roles allow to backup Openshift project resources and volume data using Velero, Restic and Noobaa Operator in a disconnected environment without OLM. Noobaa can be connected to an external s3 service provider such as AWS S3 or Azure Blob Storage.
 Minio Operator can be installed as well as an example failover HA backing store to Noobaa or as a stand alone S3 service.
-This repository contains the accompanying code and example for the following blog post: 
+This repository contains the accompanying code and example for the following blog post:
 
 https://www.openshift.com/blog/hybrid-cloud-disaster-recovery-on-openshift
 
 ## Prerequisites
 
-Linux or MacOS, Python3 and make.
-All the container images in this repository are public. In order to use this playbook in a disconnected environment they will have to be tagged and pushed to an internal registry. The ansible variables will need to be adapted accordingly. See `hack/docker_images.list`.
+Openshift v4.9, Linux or MacOS, Python3 and make.
+All the container images in this repository are public. In order to use this playbook in a disconnected environment without OLM they will have to be tagged and pushed to an internal registry. The ansible variables referring to those images will need to be adapted accordingly.
 
 ## Dependencies
 
@@ -22,13 +22,13 @@ $ oc login https://api.cluster.example.net:8443 --token=${token}
 $ export STORAGE_CLASS=exampleStorageClass
 
 $ make install
-``` 
- 
+```
 
-### Uninstall 
+
+### Uninstall
 ```
 $ make uninstall
-``` 
+```
 
 ## Notes
 
