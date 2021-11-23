@@ -14,7 +14,7 @@
   block:
     - name: Copy noobaa cli to {{ noobaa_operator_tmp.path }}
       copy:
-        src: 'files/noobaa-linux-amd64'
+        src: 'files/noobaa-linux-amd64.elf'
         dest: '{{ noobaa_operator_tmp.path }}/noobaa-linux-amd64'
         mode: a+x
 
@@ -40,7 +40,7 @@
   block:
     - name: Copy noobaa cli to {{ noobaa_operator_tmp.path }}
       copy:
-        src: 'files/noobaa-darwin-amd64'
+        src: 'files/noobaa-darwin-amd64.mac'
         dest: '{{ noobaa_operator_tmp.path }}/noobaa-darwin-amd64'
         mode: a+x
 
