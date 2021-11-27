@@ -7,8 +7,6 @@ The differences are:
 * we are adding a dummy database to the mysql pod.
 * we are leveraging openshift-velero-plugin and a custom restic-restore-helper image.
 
-The persistent case assumes the existence of the storageclass "example-nfs".
-
 Modify the PersistentVolumeClaim: spec.storageClassName appropriately at `mysql-persistent/mysql-persistent-template.yaml`.
 
 ## Create stateful mysql Deployment:

@@ -37,4 +37,4 @@ venv-clean:
 	rm -fr $(VENVDIR)
 
 pull:
-	for img in `awk '{print $$2}' $(WORKDIR)/hack/docker_images.list`;do docker pull $$img;done
+	for img in `awk '{print $$2}' $(WORKDIR)/hack/docker_images.list`;do podman pull $$img;done

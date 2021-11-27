@@ -44,13 +44,13 @@ metadata:
     app: mysql
 spec:
   accessModes:
-  - ReadWriteMany
+  - ReadWriteOnce
   storageClassName: "INSERT_CORRECT_STORAGE_CLASS_HERE"
   resources:
     requests:
       storage: 1Gi
 ---
-apiVersion: v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:

@@ -1,0 +1,9 @@
+noobaa_operator_image_tag: quay.io/rlourencc/noobaa:noobaa-operator-2.3.0
+noobaa_operator_core_image_tag: quay.io/rlourencc/noobaa:noobaa-core-5.5.0
+noobaa_operator_db_image_tag: quay.io/rlourencc/noobaa:mongodb-36-centos7
+velero_image_tag: quay.io/rlourencc/velero:konveyor-1.4.3
+velero_restic_helper_image_tag: quay.io/rlourencc/velero:velero-restic-restore-helper-v1.4.3
+velero_s3_plugin_image_tag: quay.io/rlourencc/velero:velero-plugin-for-aws-konveyor-1.1.0
+velero_openshift_plugin_image_tag: quay.io/rlourencc/velero:openshift-velero-plugin-v1.4.3
+minio_operator_image_tag: quay.io/rlourencc/minio:k8s-operator-v3.0.9
+minio_tenant_image_tag: quay.io/rlourencc/minio:minio-RELEASE.2020-08-05T21-34-13Z
